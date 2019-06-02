@@ -17,6 +17,11 @@ class BoxStack
 		stack.add(box);
 	}
 	
+	public int getStackSize()
+	{
+		return stack.size();
+	}
+	
 	public int getStackHeight()
 	{
 		int height = 0;
@@ -61,5 +66,17 @@ class BoxStack
 			System.out.println(line);
 			count++;
 		}
+	}
+	
+	public boolean contains(Box box)
+	{
+		for(Box value : stack)
+		{
+			if(box == value)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

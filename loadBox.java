@@ -2,12 +2,13 @@
 // Brad Sissons (1300752)
 
 import java.util.*;
-
-class loadBox {
-	public static ArrayList<Box> load(String fileName) {
+import java.io.File;
+import java.io.FileNotFoundException;
+final class loadBox {
+	public static ArrayList<Box> load(String fileName) throws FileNotFoundException {
 		ArrayList<Box> boxes = new ArrayList<Box>();
-		
-		Scanner sc = new Scanner(fileName);
+		File file = new File(fileName);
+		Scanner sc = new Scanner(file);
 		
 		String line = "";
 		String[] boxValues;

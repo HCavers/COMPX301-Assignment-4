@@ -4,6 +4,7 @@
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+
 final class loadBox {
 	public static ArrayList<Box> load(String fileName) throws FileNotFoundException {
 		ArrayList<Box> boxes = new ArrayList<Box>();

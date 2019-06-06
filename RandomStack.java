@@ -4,17 +4,11 @@
 import java.util.ArrayList;
 import java.util.*;
 
-class RandomStack
+final class RandomStack
 {
-	BoxStack rs;
-	
-	public RandomStack()
+	public static BoxStack getRS(ArrayList<Box> pop)
 	{
-		rs = new BoxStack();
-	}
-	
-	public BoxStack getRS(ArrayList<Box> pop)
-	{
+		BoxStack rs = new BoxStack();
 		ArrayList<Box> tempPop = new ArrayList<Box>(pop);
 		int range = tempPop.size();
 		
@@ -74,14 +68,6 @@ class RandomStack
 		
 		Collections.sort(tempPop, compareByArea);
 		Collections.reverse(tempPop);
-		
-		for(int i = 0; i < range; i++)
-		{
-			Box box = tempPop.get(i);
-			int[] boxValues = box.getTopFace();
-			System.out.println(boxValues[0] + " " + boxValues[1] + " " + boxValues[2]);
-		}
-		System.out.println("Done");
 		
 		while(range != 0)
 		{

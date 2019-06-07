@@ -5,33 +5,40 @@ import java.util.ArrayList;
 
 class BoxStack
 {
-	ArrayList<Box> stack;
+	// Instance variables
+	ArrayList<Box> stack;		// List to hold stack
 	
+	// Constructor that makes a new empty stack
 	public BoxStack()
 	{
 		stack = new ArrayList<Box>();
 	}
 	
+	// Constructor that takes a existing list
 	public BoxStack(ArrayList<Box> newStack)
 	{
 		stack = newStack;
 	}
 	
+	// Add a box to the stack
 	public void addBox(Box box)
 	{
 		stack.add(box);
 	}
 	
+	// Returns the stack
 	public ArrayList<Box> getStack()
 	{
 		return stack;
 	}
 	
+	// Get the number of elements in the stack
 	public int getStackSize()
 	{
 		return stack.size();
 	}
 	
+	// Calculates the height of all boxes in the stack
 	public int getStackHeight()
 	{
 		int height = 0;
@@ -43,6 +50,7 @@ class BoxStack
 		return height;
 	}
 	
+	// Calculates the height of the stack up to box at position index
 	public int getStackHeight(int index)
 	{
 		int height = 0;
@@ -55,27 +63,32 @@ class BoxStack
 		return height;
 	}
 	
+	// Gets the box at position index
 	public Box getBox(int index)
 	{
 		return stack.get(index);
 	}
 	
+	// Removes the box at position index
 	public void removeBox(int index)
 	{
 		stack.remove(index);
 	}
 	
+	// Inserts the box into position index
 	public void insertBox(int index, Box box)
 	{
 		stack.add(index, box);
 	}
 	
+	// Replaces the box at position index with box given as input
 	public void replaceBox(int index, Box box)
 	{
 		stack.remove(index);
 		stack.add(index, box);
 	}
 	
+	// Prints the contents of the stack to standard out
 	public void print()
 	{
 		int count = 0;
@@ -89,6 +102,7 @@ class BoxStack
 		}
 	}
 	
+	// Checks if the stack already contains the box
 	public boolean contains(Box box)
 	{
 		for(Box value : stack)

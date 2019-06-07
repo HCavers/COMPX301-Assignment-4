@@ -34,9 +34,9 @@ class Anneal
 	private static BoxStack mutate(BoxStack stack, ArrayList<Box> pop)
 	{
 		BoxStack newStack = new BoxStack(new ArrayList<Box>(stack.getStack()));
-		Box[] newBoxes = new Box[5];
+		Box[] newBoxes = new Box[10];
 		int count = 0;
-		while(count < 5)
+		while(count < 10)
 		{
 			int index = (int)(Math.random() * pop.size());
 			if(!stack.contains(pop.get(index)))
@@ -65,6 +65,28 @@ class Anneal
 		*/
 		//replace
 		
+		for(int i = 0; i < newStack.getStackSize(); i++)
+		{
+			for(Box box : newBoxes)
+			{
+				boolean needBreak = false;
+				for(int j = 1; j < 7; j++)
+				{
+					box.setTopFace(j);
+					if(replace(i, box, newStack))
+					{
+						newStack.replaceBox(i, box);
+						needBreak = true;
+						break;
+					}
+					if(needBreak)
+					{
+						break;
+					}
+				}
+			}
+		}
+		/*
 		for(int i = 0; i < stack.getStackSize() - 2; i++)
 		{
 			for(int j = 0; j < 5; j++)
@@ -80,26 +102,52 @@ class Anneal
 					}
 				}
 			}
-		}
+		}*/
 		return newStack;
 	}
 	
-	private void replace(int index, Box box, BoxStack stack)
+	private static boolean replace(int index, Box box, BoxStack stack)
 	{
 		boolean belowTop = false;
 		boolean aboveBottom = false;
 		
 		if(index == 0)
 		{
-			//return false;
+			return false;
 		}
 		else
 		{
 			Box topBox = stack.getBox(index - 1);
 			if(box.getTopFace()[0] < topBox.getTopFace()[0] && box.getTopFace()[1] < topBox.getTopFace()[1])
 			{
-				//if(box.getTopFace()[0] > 
+				if(box.getTopFace()[2] > topBox.getTopFace()[2])
+				{
+					belowTop = true;
+				} 
 			}
+		}
+		if(index == stack.getStackSize() - 1)
+		{
+			aboveBottom = true;
+		}
+		else
+		{
+			Box belowBox = stack.getBox(index + 1);
+			if(box.getTopFace()[0] > belowBox.getTopFace()[0] && box.getTopFace()[1] > belowBox.getTopFace()[1])
+			{
+				if(box.getTopFace()[2] > box.getTopFace()[2])
+				{
+					aboveBottom = true;
+				}
+			}
+		}
+		if(belowTop == true && aboveBottom == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 }

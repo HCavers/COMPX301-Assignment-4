@@ -8,11 +8,10 @@ class Anneal
 		int temperature = temp;
 		BoxStack current = is;
 		BoxStack best = is;
-		RandomStack rs = new RandomStack();
 		int count = 0;
 		while(temperature > 1)
 		{
-			BoxStack next = rs.getRS(pop);
+			BoxStack next = RandomStack.getRS(pop);
 			int currentHeight = current.getStackHeight();
 			int nextHeight = next.getStackHeight();
 			if(nextHeight > currentHeight)
@@ -38,5 +37,23 @@ class Anneal
 		String line = String.format("%d number of loops made", count);
 		System.out.println(line);
 		return best;
+	}
+	
+	private static BoxStack mutate(BoxStack stack, ArrayList<Box> pop)
+	{
+		BoxStack newStack = new BoxStack(new ArrayList<Box>(stack.getStack()));
+		Box[] newBoxes = new Box[5];
+		int count = 0;
+		while(count < 5)
+		{
+			int index = (int)(Math.random() * pop.size());
+			if(stack.contains(pop.get(index)))
+			{
+				newBoxes[count] = pop.get(index);
+				count++;
+			}
+		}
+		
+		return null;
 	}
 }

@@ -12,9 +12,19 @@ class BoxStack
 		stack = new ArrayList<Box>();
 	}
 	
+	public BoxStack(ArrayList<Box> newStack)
+	{
+		stack = newStack;
+	}
+	
 	public void addBox(Box box)
 	{
 		stack.add(box);
+	}
+	
+	public ArrayList<Box> getStack()
+	{
+		return stack;
 	}
 	
 	public int getStackSize()

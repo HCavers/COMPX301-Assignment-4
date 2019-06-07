@@ -31,5 +31,7 @@ class NPStack
 		ArrayList<Box> boxes = loadBox.load(inputFileName);
 		BoxStack stack = RandomStack.getRS(boxes);
 		stack.print();
+		BoxStack newStack = Anneal.process(stack, 10000, .3, boxes);
+		newStack.print();
 	}
 }

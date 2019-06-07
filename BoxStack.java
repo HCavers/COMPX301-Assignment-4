@@ -65,6 +65,17 @@ class BoxStack
 		stack.remove(index);
 	}
 	
+	public void insertBox(int index, Box box)
+	{
+		stack.add(index, box);
+	}
+	
+	public void replaceBox(int index, Box box)
+	{
+		stack.remove(index);
+		stack.add(index, box);
+	}
+	
 	public void print()
 	{
 		int count = 0;

@@ -11,22 +11,14 @@ class Anneal
 		int count = 0;
 		while(temperature > 1)
 		{
-			BoxStack next = RandomStack.getRS(pop);
+			BoxStack next = mutate(current, pop);
 			int currentHeight = current.getStackHeight();
 			int nextHeight = next.getStackHeight();
 			if(nextHeight > currentHeight)
 			{
 				current = next;
 			}
-			else
-			{
-				double energy = (currentHeight - nextHeight) / temperature;
-				double prob = Math.random();
-				if(energy < prob)
-				{
-					current = next;
-				}
-			}
+			
 			if(current.getStackHeight() > best.getStackHeight())
 			{
 				best = current;
@@ -47,13 +39,67 @@ class Anneal
 		while(count < 5)
 		{
 			int index = (int)(Math.random() * pop.size());
-			if(stack.contains(pop.get(index)))
+			if(!stack.contains(pop.get(index)))
 			{
 				newBoxes[count] = pop.get(index);
 				count++;
 			}
 		}
+		//insert
+		/*
+		for(int j = 0; j < 5; j++)
+		{
+			for(int k = 1; k < 7; k++)
+			{
+				for(int i = 0; i < stack.getStackSize() - 1; i++)
+				{
+					newBoxes[j].setTopFace(k);
+					if((newBoxes[j].getTopFace()[0] < newStack.getBox(i).getTopFace()[0]) && (newBoxes[j].getTopFace()[1] < newStack.getBox(i).getTopFace()[1]) && (newBoxes[j].getTopFace()[0] > newStack.getBox(i+1).getTopFace()[0]) && (newBoxes[j].getTopFace()[1] > newStack.getBox(i+1).getTopFace()[1]))
+					{
+						newStack.insertBox(i, newBoxes[j]);
+						break;
+					}
+				}
+			}
+		}
+		*/
+		//replace
 		
-		return null;
+		for(int i = 0; i < stack.getStackSize() - 2; i++)
+		{
+			for(int j = 0; j < 5; j++)
+			{
+				for(int k = 1; k < 7; k++)
+				{
+					newBoxes[j].setTopFace(k);
+					//newStack.replaceBox(
+					if((newBoxes[j].getTopFace()[0] < newStack.getBox(i).getTopFace()[0]) && (newBoxes[j].getTopFace()[1] < newStack.getBox(i).getTopFace()[1]) && (newBoxes[j].getTopFace()[0] > 				   newStack.getBox(i+2).getTopFace()[0]) && (newBoxes[j].getTopFace()[1] > newStack.getBox(i+2).getTopFace()[1]) && (newBoxes[j].getTopFace()[2] > newStack.getBox(i+1).getTopFace()[2]))
+					{
+						newStack.replaceBox(i+1, newBoxes[j]);
+						break;
+					}
+				}
+			}
+		}
+		return newStack;
+	}
+	
+	private void replace(int index, Box box, BoxStack stack)
+	{
+		boolean belowTop = false;
+		boolean aboveBottom = false;
+		
+		if(index == 0)
+		{
+			//return false;
+		}
+		else
+		{
+			Box topBox = stack.getBox(index - 1);
+			if(box.getTopFace()[0] < topBox.getTopFace()[0] && box.getTopFace()[1] < topBox.getTopFace()[1])
+			{
+				//if(box.getTopFace()[0] > 
+			}
+		}
 	}
 }

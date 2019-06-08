@@ -6,17 +6,19 @@ import java.util.*;
 
 final class RandomStack
 {
+	// Gets a psuedo random stack from a population of boxes
 	public static BoxStack getRS(ArrayList<Box> pop)
 	{
+		// Variables needed
 		BoxStack rs = new BoxStack();
 		ArrayList<Box> tempPop = new ArrayList<Box>(pop);
 		int range = tempPop.size();
-		
+		// For each box in the population
 		for(int i = 0; i < range; i++)
 		{
 			Box box = tempPop.get(i);
 			int[] boxValues = box.getTopFace();
-			
+			// Check each face of the box to set the top face as the face with the biggest area
 			if(boxValues[0] > boxValues[1])
 			{
 				if(boxValues[0] > boxValues[2])
@@ -54,7 +56,7 @@ final class RandomStack
 				}
 			}
 		}
-		
+		// Sort boxs to have biggest area first
 		Comparator<Box> compareByArea = new Comparator<Box>()
 		{
 			@Override
@@ -68,14 +70,16 @@ final class RandomStack
 		
 		Collections.sort(tempPop, compareByArea);
 		Collections.reverse(tempPop);
-		
+		// Loop from biggest box to smallest box
 		while(range != 0)
 		{
+			// Get box from stack 
 			Box newBox = tempPop.get(0);
 			tempPop.remove(0);
-			
+			// If the stack is not empty
 			if(rs.getStackSize() != 0)
 			{
+				// Check if new box fits on top of the stack
 				Box topBox = rs.getBox(rs.getStackSize() - 1);
 				
 				int[] topBoxValues = topBox.getTopFace();
@@ -83,11 +87,13 @@ final class RandomStack
 				
 				if((newBoxValues[0] < topBoxValues[0]) && (newBoxValues[1] < topBoxValues[1]))
 				{
+					// If it does then add to top of stack
 					rs.addBox(newBox);
 				}
 			}
 			else
 			{
+				// Otherwise add box to empty stack
 				rs.addBox(newBox);
 			}
 			range--;
